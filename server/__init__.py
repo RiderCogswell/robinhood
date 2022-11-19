@@ -1,10 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from server.routes import home, api, portfolio
 from server.db import init_db
 
 def create_app(test_config=None):
     app = Flask(__name__, static_url_path='')
-    app.url_map.strict_slashes = False
+
     app.config.from_mapping(
         SECRET_KEY='robinhood',
     )

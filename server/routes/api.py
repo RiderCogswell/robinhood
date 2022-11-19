@@ -1,11 +1,18 @@
 from flask import Blueprint, jsonify, request, session
+from flask_cors import cross_origin
 from server.models import User, Purchase
 from server.db import get_db
 from server.utils.stocks import get_company_info
 from server.utils.auth import login_required
 import sys
 
+info = get_company_info('AAPL')
 bp = Blueprint('api', __name__, url_prefix='/api')
+
+@bp.route('/data', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def index():
+  return info
 
 @bp.route('/users', methods=['POST'])
 def signup():

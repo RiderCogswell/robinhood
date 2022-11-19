@@ -8,7 +8,13 @@ function App() {
   })
 
   useEffect(() => {
-    fetch('/')
+    fetch('http://127.0.0.1:5000/api/data', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'mode': 'cors'
+      }
+    })
       .then(res => res.json())
       .then(data => {
         setData({
