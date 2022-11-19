@@ -10,7 +10,7 @@ load_dotenv() # make use of the .env file
 # Create a connection to the database
 engine = create_engine(getenv('DB_URL'), echo=True, pool_size=20, max_overflow=0)
 Session = sessionmaker(bind=engine)
-Base = declarative_base()
+Base = declarative_base() # stores classes and tables
 
 def init_db():
     Base.metadata.create_all(engine)
