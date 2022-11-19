@@ -1,5 +1,5 @@
 from flask import Flask
-from server.routes import home
+from server.routes import home, api
 from server.db import init_db
 
 def create_app(test_config=None):
@@ -10,7 +10,7 @@ def create_app(test_config=None):
 
     app.register_blueprint(home)
     # app.register_blueprint(portfolio)
-    # app.register_blueprint(api)
+    app.register_blueprint(api)
 
     init_db(app)
 
