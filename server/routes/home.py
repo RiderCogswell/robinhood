@@ -1,14 +1,13 @@
 from flask import Blueprint, render_template, session, redirect
 from server.db import get_db
+from server.utils.stocks import get_company_info
 
 bp = Blueprint('home', __name__, url_prefix='/')
-
+info = get_company_info('AAPL')
 
 @bp.route('/')
 def index():
-  if session.get('loggedIn') == True:
-    return render_template('home/index.html')
-  return redirect('/login')
+  return info
 
 @bp.route('/login')
 def login():

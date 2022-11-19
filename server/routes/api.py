@@ -8,7 +8,7 @@ import sys
 bp = Blueprint('api', __name__, url_prefix='/api')
 
 @bp.route('/users', methods=['POST'])
-def create_user():
+def signup():
   data = request.get_json()
   db = get_db()
 
@@ -84,3 +84,9 @@ def purchase():
     return jsonify(message = 'Purchase failed'), 500
 
   return jsonify(id = newPurchase.id)
+
+@bp.route('/companies/<symbol>', methods=['GET'])
+def company(symbol):
+  company = get_company_info(symbol)
+
+  return jsonify(company)
