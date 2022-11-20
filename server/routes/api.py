@@ -2,16 +2,17 @@ from flask import Blueprint, jsonify, request, session
 from flask_cors import cross_origin
 from server.models import User, Purchase
 from server.db import get_db
-from server.utils.stocks import get_company_info
+from server.utils.stocks import Stock
 from server.utils.auth import login_required
 import sys
 
-info = get_company_info('AAPL')
+
 bp = Blueprint('api', __name__, url_prefix='/api')
 
-@bp.route('/', methods=['GET'])
+@bp.route('/data', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def index():
+def data(ticker):
+  info = map(ticker)
   return info
 
 @bp.route('/user', methods=['POST'])
@@ -87,7 +88,7 @@ def purchase():
   db = get_db()
 
   try:
-    company = get_company_info(data['symbol'])
+    company = Stock(data['ticker'])
 
     newPurchase = Purchase(
       user_id=session.get('user_id'),
@@ -109,6 +110,6 @@ def purchase():
 
 @bp.route('/companies/<symbol>', methods=['GET'])
 def company(symbol):
-  company = get_company_info(symbol)
+  company = Stock(symbol)
 
-  return jsonify(company)
+  return jsonify(company.get_company_info(symbol))

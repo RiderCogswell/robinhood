@@ -8,7 +8,7 @@ function App() {
   })
 
   useEffect(() => {
-    fetch('/api')
+    fetch('/api/data')
       .then(res => res.json())
       .then(data => {
         setData({
@@ -25,6 +25,7 @@ function App() {
       <p>{data.symbol}</p>
       <p>{data.price}</p>
       <p>{data.volume}</p>
+      <button>Buy</button>
     </div>
   );
 }
