@@ -82,14 +82,11 @@ def logout():
   return '', 204
 
 @bp.route('/purchases', methods=['POST'])
-@login_required
 def purchase():
   data = request.get_json()
   db = get_db()
 
   try:
-    company = Stock(data['ticker'])
-
     newPurchase = Purchase(
       user_id=session.get('user_id'),
       symbol=data['symbol'],
