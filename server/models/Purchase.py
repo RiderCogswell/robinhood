@@ -9,7 +9,6 @@ class Purchase(Base):
   symbol = Column(String(50), nullable=False)
   shares = Column(Integer, nullable=False)
   user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-  description = Column(String(100), nullable=False)
   price = Column(Integer, nullable=False)
   purchased_at = Column(DateTime, default=datetime.now)
 

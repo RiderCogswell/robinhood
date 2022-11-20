@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,6 +15,7 @@ const Login = () => {
         body: JSON.stringify(formState),
         headers: { 'Content-Type': 'application/json' },
       });
+      setLoggedIn(true);
     } catch (err) {
       console.log(err);
     }
@@ -55,6 +58,7 @@ const Login = () => {
       <div className="flex-row flex-end">
         <button type="submit">Submit</button>
       </div>
+      {loggedIn && <Navigate to="/" />}
     </form>
   </div>
   )
