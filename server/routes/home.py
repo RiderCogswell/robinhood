@@ -4,9 +4,6 @@ from server.utils.stocks import get_company_info
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
-
-
-
 @bp.route('/login')
 def login():
   if session.get('logged_in') is None:

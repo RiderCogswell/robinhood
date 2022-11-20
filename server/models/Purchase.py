@@ -13,4 +13,4 @@ class Purchase(Base):
   price = Column(Integer, nullable=False)
   purchased_at = Column(DateTime, default=datetime.now)
 
-  user = relationship('User', back_populates='purchases')
+  user = relationship('User')

@@ -5,6 +5,7 @@ from server.db import init_db
 
 def create_app(test_config=None):
     app = Flask(__name__, static_url_path='')
+    CORS(app, supports_credentials=True)
     app.config.from_mapping(
         SECRET_KEY='robinhood',
     )

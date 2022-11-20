@@ -9,22 +9,21 @@ import sys
 info = get_company_info('AAPL')
 bp = Blueprint('api', __name__, url_prefix='/api')
 
-@bp.route('/data', methods=['GET'])
+@bp.route('/', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def index():
   return info
 
-@bp.route('/users', methods=['POST'])
-@cross_origin(supports_credentials=True)
+@bp.route('/user', methods=['POST'])
 def signup():
   data = request.get_json()
   db = get_db()
 
   try: 
     newUser = User(
-      username=data['username'],
-      email=data['email'],
-      password=data['password']
+      username = data['username'],
+      email = data['email'],
+      password = data['password']
     )
 
     db.add(newUser)
@@ -39,7 +38,22 @@ def signup():
   session.clear()
   session['user_id'] = newUser.id
   session['loggedIn'] = True
-  return jsonify(id = newUser.id)
+  return jsonify(
+    id = newUser.id,
+    username = newUser.username,
+    email = newUser.email,
+    password = newUser.password
+    ), 200
+
+@bp.route('/users', methods=['GET'])
+def get_all_users():
+  try:
+    db = get_db()
+    users = db.query(User).all()
+    return jsonify(users)
+  except:
+    print(sys.exc_info()[0])
+    return jsonify(message = 'Could not get users'), 500
 
 @bp.route('/users/login', methods=['POST'])
 def login():
