@@ -1,6 +1,13 @@
 # Robinhood
 
+## Description
+
 ---***WORK IN PROGRESS!!!***---
+
+***Currently very unfinished, Backend 80%, Frontend 75%!***
+
+Do you want to make some f***ing money?? Robinhood is a simple, fast, and secure way to manage your finances. It's a free, mobile-first investing app that lets you buy and sell stocks, ETFs, options, and cryptos all commission-free. We're on a mission to democratize finance for all.
+
 
 ## Table of Contents
   - [Installation](#installation)
@@ -21,15 +28,17 @@
 
 ```3. if on Windows run '.\venv\Scripts\activate', if Mac run '. venv/bin/activate'```
 
-```4. cd ..```
+``` 4.in virtual environment run pip install```
 
-```5. npm start server```
+```5. cd ..```
 
-```6. npm start ```
+```6. npm start server```
+
+```7. npm start ```
 
 ```This will start the server and client.```
 
-```7. Go to localhost:3000 in your browser```
+```8. Go to localhost:3000 in your browser```
 
 ```The client will run on http://localhost:3000 and the server on http://localhost:5000```
 
