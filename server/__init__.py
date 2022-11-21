@@ -10,6 +10,19 @@ def create_app(test_config=None):
         SECRET_KEY='robinhood',
     )
 
+    @app.route('/quote')
+    def quote():
+      try:
+            symbol = request.args.get('symbol', None)
+
+            quote = yf.Ticker(symbol)
+
+            return jsonify(quote.info)
+      except:
+            print(sys.exc_info()[0])
+
+            return jsonify(message = 'Could not get quote'), 500
+
     app.register_blueprint(home)
     app.register_blueprint(portfolio)
     app.register_blueprint(api)

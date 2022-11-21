@@ -1,13 +1,19 @@
-from flask import Blueprint, jsonify, request, session
+from os import getenv
+from flask import Flask, Blueprint, jsonify, request, session
 from flask_cors import cross_origin
+from datetime import datetime, timedelta, timezone
+from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, jwt_required, JWTManager, unset_jwt_cookies
 from server.models import User, Purchase
 from server.db import get_db
 from server.utils.stocks import Stock
-from server.utils.auth import login_required
+import yfinance as yf
 import sys
 
 
 bp = Blueprint('api', __name__, url_prefix='/api')
+
+# bp.config["JWT_SECRET_KEY"] = getenv("JWT_SECRET_KEY")
+# jwt = JWTManager()
 
 @bp.route('/data', methods=['GET'])
 @cross_origin(supports_credentials=True)
@@ -50,14 +56,24 @@ def signup():
 def get_all_users():
   try:
     db = get_db()
+    print(db)
     users = db.query(User).all()
     return jsonify(users)
   except:
     print(sys.exc_info()[0])
+    print(db)
     return jsonify(message = 'Could not get users'), 500
 
-@bp.route('/users/login', methods=['POST'])
+@bp.route('/login', methods=['POST'])
 def login():
+  # email = request.json.get('email', None)
+  # password = request.json.get('password', None)
+  # if email != '' or password != '':
+  #   return jsonify({"msg": "Bad email or password"}), 401
+
+  # access_token = create_access_token(identity=email)
+  # response = {"access_token": access_token}
+  # return jsonify(response), 200
   data = request.get_json()
   db = get_db()
 
@@ -75,7 +91,7 @@ def login():
 
   return jsonify(id = user.id)
 
-@bp.route('/users/logout', methods=['POST'])
+@bp.route('/logout', methods=['POST'])
 def logout():
   # remove session variables
   session.clear()
@@ -107,8 +123,15 @@ def purchase(symbol):
 
   return jsonify(id = newPurchase.id)
 
-@bp.route('/companies/<symbol>', methods=['GET'])
-def company(symbol):
-  company = Stock(symbol)
+@bp.route('/quote', methods=['GET'])
+def get_quote():
+  try:
+    symbol = request.args.get('symbol', None)
 
-  return jsonify(company.get_company_info(symbol))
+    quote = yf.Ticker(symbol)
+
+    return jsonify(quote.info)
+  except:
+    print(sys.exc_info()[0])
+
+    return jsonify(message = 'Could not get quote'), 500

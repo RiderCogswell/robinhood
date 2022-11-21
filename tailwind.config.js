@@ -31,6 +31,10 @@ module.exports = {
       height: {
         '88vh': '88vh',
       },
+      backgroundImage: {
+        'blurred-img':
+          "url('https://www.123freevectors.com/ezoimgfmt/i2.wp.com/files.123freevectors.com/wp-content/original/110965-dark-color-blurred-background-vector.jpg?ezimgfmt=rs%3Adevice%2Frscb2-1&q=95&w=800')",
+      },
     },
   },
   plugins: [],

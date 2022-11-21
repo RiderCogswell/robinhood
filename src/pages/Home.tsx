@@ -6,6 +6,8 @@ const Home = () => {
     price: '',
     volume: ''
   }])
+  console.log(data);
+  
 
   useEffect(() => {
     fetch('/api/data')
@@ -21,15 +23,23 @@ const Home = () => {
   }, [])
 
   return (
-    <div>
-      {data.map((stock: any, index: number) => (
-        <div key={index}>
-          <p>{stock.symbol}</p>
-          <p>{stock.price}</p>
-          <p>{stock.volume}</p>
-          <button>Buy</button>
-        </div>
-      ))}
+    <div className='flex items-center justify-center overscroll-x-contain'
+      style={{
+        backgroundImage: `url("https://cdn.dribbble.com/users/172256/screenshots/12099950/media/d6a355b4196e342b23a07655591abf4b.jpg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        height: '100vh',
+        width: '100vw',
+        imageRendering: 'crisp-edges',
+        zIndex: -1,
+        overflow: 'hidden'
+        
+      }}
+    >
+      {/* <video className='z-10 bg-cover no-repeat bg-center h-100vh ' autoPlay loop muted>
+        <source src={Robinhood} type='video/mp4' />
+      </video> */}
     </div>
   )
 }
