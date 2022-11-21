@@ -10,7 +10,7 @@ const Login = () => {
     console.log(formState);
 
     try {
-      fetch('/api/user', {
+      fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify(formState),
         headers: { 'Content-Type': 'application/json' },
